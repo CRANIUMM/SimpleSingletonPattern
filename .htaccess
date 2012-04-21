@@ -1,0 +1,21 @@
+# Renomeie este arquivo para somente .htacess 
+# e coloque na raiz do seu servidor
+# ----------------------------------------------------------------------
+# Esta configuração permite a concatenação dentro de arquivos js e css
+# ----------------------------------------------------------------------
+
+# Exemplo: Dentro de script.pacote.js você pode ter
+#   <!--#include file="libs/jquery-1.5.0.min.js" -->
+#   <!--#include file="plugins/jquery.idletimer.js" -->
+# e eles serão incluídos em um único arquivo. O mesmo vale para css.
+
+<FilesMatch "\.pacote\.js$">
+  Options +Includes
+  AddOutputFilterByType INCLUDES application/javascript application/json
+  SetOutputFilter INCLUDES
+</FilesMatch>
+<FilesMatch "\.pacote\.css$">
+  Options +Includes
+  AddOutputFilterByType INCLUDES text/css
+  SetOutputFilter INCLUDES
+</FilesMatch>
