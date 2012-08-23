@@ -1,4 +1,3 @@
-
 //Início de APP.ModuloGenerico
 var APP  = APP || {};
 
@@ -10,4 +9,3 @@ APP.ModuloGenerico = {
 	}
 };
 //FIM de APP.ModuloGenerico
- 

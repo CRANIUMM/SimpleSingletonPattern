@@ -41,8 +41,10 @@ var APP = APP || {};
 //Inicia o APP
 APP.iniciar = function(Modulo) {
 	
-	//Caso o Modulo seja omitido, TODOS os módulos de APP serão iniciados
+	//Se algum Modulo for especificado, executa o setUp de App	
 	if(Modulo !== undefined && Modulo !== APP) APP.setUp();
+
+	//Caso o Modulo seja omitido, TODOS os módulos de APP serão iniciados
 	this.iniciarModulos(Modulo || APP);
 };
 
@@ -71,6 +73,11 @@ APP.iniciarModulos = function(Modulo) {
 				Modulo[Filho]['pai'] = function() {
 					return Modulo;
 				};
+
+				//Cria em cada módulo a propriedade _nameSpace
+				//Ex: App.Contato.Formulario._nameSpace = App.Contato.Formulario
+				Objeto[Filho]['_nameSpace'] = (Objeto['_nameSpace'] || "APP") + '.'+Filho;
+
 				
 				APP.iniciarModulos(Modulo[Filho]);
 			}
