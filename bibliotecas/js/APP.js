@@ -43,7 +43,7 @@
 var APP = APP || {};
 
 //Propriedade que será executa em todos os módulos
-APP._nameSpace: "APP";
+APP._nameSpace = "APP";
 
 //Inicia o APP
 APP.iniciar = function(Modulo) {
