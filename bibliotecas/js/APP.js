@@ -73,6 +73,8 @@ APP.iniciarModulos = function(Modulo) {
 	
 	//Procura por Sub Módulos para fazer a mesma coisa
 	for(Filho in Modulo) {
+		
+
 		if(Modulo.hasOwnProperty(Filho) === true) {
 			if(Modulo[Filho] !== null && typeof Modulo[Filho] == "object") {
 				
@@ -80,6 +82,7 @@ APP.iniciarModulos = function(Modulo) {
 				Modulo[Filho]['pai'] = function() {
 					return Modulo;
 				};
+
 
 				//Cria em cada módulo a propriedade _nameSpace
 				//Ex: App.Contato.Formulario._nameSpace = App.Contato.Formulario
@@ -94,5 +97,44 @@ APP.iniciarModulos = function(Modulo) {
 	return false;
 };
 
+/**
+ *	Executa um método a partir de um nameSpace e pode receber um array de parâmetros da função
+ *	Ex: APP.nameSpace("APP.ModuloPai.ModuloFilho.meuMetodo", ["parametro1", "parametro2"]);
+ * 	O método retornará o resultado do método apontado no name space
+ */
+APP.nameSpace = function(nameSpace, arrayDeParametros) {
+	//Declaração de variáveis;
+	var node, no, escopos, i;
+
+	//Remove a obrigatoriedade de informar o segundo parâmetro
+	arrayDeParametros = arrayDeParametros || [];
+
+		//Escopos encontrados
+		escopos = [window],
+
+		//Nós do nameSpace
+		nos = nameSpace.split('.');
+
+		//Para cada nó
+		for(i=0;i<nos.length;i++) {
+			no = nos[i];
+
+			//Verifica se não é do protótipo
+			if(escopos[i].hasOwnProperty(no)) {
+
+				//Guarda o escpo encontrado
+				escopos.push(escopos[i][no]);
+			}
+		}
+
+		//Se a última referência encontrada
+		if(typeof escopos[escopos.length-1] == 'function') {
+
+			return escopos[escopos.length-1]
+						.apply(escopos[escopos.length-2], arrayDeParametros);
+		} else {
+			return escopos[escopos.length-1];
+		}
+}
+
 //FIM de APP
- 
