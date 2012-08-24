@@ -32,11 +32,17 @@
  *  APP.Mudulo = {
  * 		_atributo: "valor" 
  * }
+ * 
+ * Colaboradores:
+ * - Brenda Barros 
+ * - Ciclone Andrade
+ * - Pablo Reis
  **/
 
 //Existe APP? Sim. Então usa. Não. Então cria.
 var APP = APP || {};
 
+//Propriedade que será executa em todos os módulos
 APP._nameSpace: "APP";
 
 //Inicia o APP
@@ -77,7 +83,7 @@ APP.iniciarModulos = function(Modulo) {
 
 				//Cria em cada módulo a propriedade _nameSpace
 				//Ex: App.Contato.Formulario._nameSpace = App.Contato.Formulario
-				Objeto[Filho]['_nameSpace'] = (Objeto['_nameSpace'] || "APP") + '.'+Filho;
+				Modulo[Filho]['_nameSpace'] = (Modulo['_nameSpace'] || "APP") + '.'+Filho;
 
 				
 				APP.iniciarModulos(Modulo[Filho]);
