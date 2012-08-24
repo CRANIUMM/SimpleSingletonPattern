@@ -37,6 +37,7 @@
 //Existe APP? Sim. Então usa. Não. Então cria.
 var APP = APP || {};
 
+APP._nameSpace: "APP";
 
 //Inicia o APP
 APP.iniciar = function(Modulo) {
