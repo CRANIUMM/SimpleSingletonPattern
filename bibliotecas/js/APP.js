@@ -98,16 +98,22 @@ APP.iniciarModulos = function(Modulo) {
 };
 
 /**
- *	Executa um método a partir de um nameSpace e pode receber um array de parâmetros da função
- *	Ex: APP.nameSpace("APP.ModuloPai.ModuloFilho.meuMetodo", ["parametro1", "parametro2"]);
- * 	O método retornará o resultado do método apontado no name space
+ *	Retorna o valor da propriedade (nó) informado.
+ *  Ex 1: 
+ * 		APP.nameSpace("APP.ModuloPai.ModuloFilho");
+ * 		Retornará: APP.ModuloPai.ModuloFilho
+ * 
+ * 	Caso o nó seja um método, ele será executado.
+ *	É possível passar parâmetros 
+ *
+ * 	Ex 2: APP.Calculadora.somar = function(a, b) { return a+b; }	
+ * 		
+ *	APP.nameSpace("APP.Calculadora.somar", [7, 9]);
+ * 		Retornará: 15
  */
 APP.nameSpace = function(nameSpace, arrayDeParametros) {
 	//Declaração de variáveis;
-	var node, no, escopos, i;
-
-	//Remove a obrigatoriedade de informar o segundo parâmetro
-	arrayDeParametros = arrayDeParametros || [];
+	var node, no, escopos, alvo, i;
 
 		//Escopos encontrados
 		escopos = [window],
@@ -127,14 +133,19 @@ APP.nameSpace = function(nameSpace, arrayDeParametros) {
 			}
 		}
 
-		//Se a última referência encontrada
-		if(typeof escopos[escopos.length-1] == 'function') {
+		//Captura o alvo
+		alvo = escopos.pop();
 
-			return escopos[escopos.length-1]
-						.apply(escopos[escopos.length-2], arrayDeParametros);
-		} else {
-			return escopos[escopos.length-1];
+		//Se a última referência encontrada for uma função
+		if(typeof alvo == 'function') {
+
+			//A função é executada no escopo do alvo
+			return alvo.apply(escopos.pop(), arrayDeParametros || []);
+
 		}
+
+		//Apenas retorna o alvo, caso não seja uma função
+		else { return alvo; }
 }
 
 //FIM de APP
