@@ -109,7 +109,7 @@ APP.iniciarModulos = function(Modulo) {
  * 	Ex 2: APP.Calculadora.somar = function(a, b) { return a+b; }	
  * 		
  *	APP.nameSpace("APP.Calculadora.somar", [7, 9]);
- * 		Retornará: 15
+ * 		Retornará: 16
  */
 APP.nameSpace = function(nameSpace, arrayDeParametros) {
 	//Declaração de variáveis;
