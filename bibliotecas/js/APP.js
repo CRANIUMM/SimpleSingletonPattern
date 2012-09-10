@@ -8,7 +8,7 @@
  * Veja mais em www.denniscalazans.com/js
  * 
  * Problema 
- * Como modularizar o meu projeto, proteger a estrutura, tornar o código manutenível
+ * Como modularizar o meu projeto, proteger a estrutura, tornar o código manutenível?
  * 
  * Solução
  * Criar apenas uma variável global e utilizar notação de objeto
@@ -33,10 +33,9 @@
  * 		_atributo: "valor" 
  * }
  * 
- * Colaboradores:
- * - Brenda Barros 
- * - Ciclone Andrade
- * - Pablo Reis
+ * Agradecimento a os meus alunos e amigos que vem trabalhando 
+ * e contribuindo para o desenvolvimento desta iniciativa:
+ * Bruno Mota, Brenda, Ciclone, Pablo, Leonardo, Ricardo 
  **/
 
 //Existe APP? Sim. Então usa. Não. Então cria.
@@ -69,6 +68,10 @@ APP.iniciarModulos = function(Modulo) {
 	//Executa o método construtor do módulo, se existir
 	if(Modulo.hasOwnProperty('setUp') && typeof Modulo.setUp == "function") {
 		Modulo.setUp();
+	} else {
+		//Evita que durante a execução dos setUp, objetos inseridos na estrutura, 
+		//ampliem a verificação iterativa
+		return false;
 	}
 	
 	//Procura por Sub Módulos para fazer a mesma coisa
@@ -113,7 +116,7 @@ APP.iniciarModulos = function(Modulo) {
  */
 APP.nameSpace = function(nameSpace, arrayDeParametros) {
 	//Declaração de variáveis;
-	var node, no, escopos, alvo, i;
+	var no, escopos, alvo, i;
 
 		//Escopos encontrados
 		escopos = [window],
