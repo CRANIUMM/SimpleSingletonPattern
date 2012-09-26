@@ -48,7 +48,9 @@ APP._nameSpace = "APP";
 APP.iniciar = function(Modulo) {
 	
 	//Se algum Modulo for especificado, executa o setUp de App	
-	if(Modulo !== undefined && Modulo !== APP) APP.setUp();
+	if(Modulo !== undefined && Modulo !== APP) {
+		APP.setUp();
+	}
 
 	//Caso o Modulo seja omitido, TODOS os módulos de APP serão iniciados
 	this.iniciarModulos(Modulo || APP);
@@ -117,6 +119,13 @@ APP.iniciarModulos = function(Modulo) {
 APP.nameSpace = function(nameSpace, arrayDeParametros) {
 	//Declaração de variáveis;
 	var no, escopos, alvo, i;
+
+		//Por comodidade, se for apenas 1 parâmetro,
+		 //pode passar direto, sem estar dentro de um array
+		//By Pablo
+		if(arrayDeParametros !== undefined && arrayDeParametros instanceof Array === false) {
+			arrayDeParametros = [arrayDeParametros];
+		}
 
 		//Escopos encontrados
 		escopos = [window],
